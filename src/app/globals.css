@@ -1,26 +1,103 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Scraped store data is not source code; scanning it for class names is slow and breaks on its HTML. */
+@source not "../../data/**";
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Solder-mask green for actions, copper for savings: the colors of a circuit board. */
+:root {
+  --background: #f4f6f4;
+  --surface: #ffffff;
+  --sunken: #eef1ee;
+  --ink: #0f1714;
+  --muted: #5d6a64;
+  --faint: #8b9690;
+  --line: #e2e7e3;
+  --line-strong: #cbd3ce;
+  --hover: #ebefec;
+  --accent: #0b7a5c;
+  --accent-strong: #08654c;
+  --accent-soft: #e3f3ec;
+  --copper: #b9560f;
+  --copper-soft: #fbeee2;
+  --best: #0b7a5c;
+  --warn: #b45309;
+  --store-l: 93%;
+  --store-ink-l: 30%;
+  --shadow: 0 1px 2px rgb(15 23 20 / 0.04), 0 2px 8px rgb(15 23 20 / 0.04);
+  --shadow-lift: 0 2px 4px rgb(15 23 20 / 0.05), 0 12px 28px rgb(15 23 20 / 0.09);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0b100e;
+    --surface: #131a17;
+    --sunken: #0f1513;
+    --ink: #e6ede9;
+    --muted: #97a59e;
+    --faint: #6d7a74;
+    --line: #212b27;
+    --line-strong: #2e3a35;
+    --hover: #1a2420;
+    --accent: #3ccf9a;
+    --accent-strong: #5ddcae;
+    --accent-soft: #143328;
+    --copper: #f3a061;
+    --copper-soft: #3a2414;
+    --best: #3ccf9a;
+    --warn: #f0a050;
+    --store-l: 22%;
+    --store-ink-l: 78%;
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.3);
+    --shadow-lift: 0 2px 4px rgb(0 0 0 / 0.3), 0 12px 28px rgb(0 0 0 / 0.35);
   }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-sunken: var(--sunken);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-hover: var(--hover);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-soft: var(--accent-soft);
+  --color-copper: var(--copper);
+  --color-copper-soft: var(--copper-soft);
+  --color-best: var(--best);
+  --color-warn: var(--warn);
+  --shadow-card: var(--shadow);
+  --shadow-lift: var(--shadow-lift);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
 }
 
 body {
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--ink);
+}
+
+/* Each store gets a stable hue (set as --h) so it's recognizable at a glance across the site. */
+.store-badge {
+  background: hsl(var(--h) 60% var(--store-l));
+  color: hsl(var(--h) 55% var(--store-ink-l));
+}
+
+/* Faint circuit-trace texture behind the home hero. */
+.hero-grid {
+  background-image:
+    linear-gradient(to right, var(--line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse 70% 90% at 50% 0%, black 30%, transparent 75%);
+}
+
+.scrollbar-none {
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
 }
